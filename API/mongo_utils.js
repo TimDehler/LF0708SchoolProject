@@ -1,13 +1,10 @@
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 import { MongoClient } from "mongodb";
 import "dotenv/config";
 const client = new MongoClient(process.env.uri);
 
 export async function connect() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Client was connected!");
   } catch (e) {
@@ -59,7 +56,7 @@ export async function insertUserInDBSCollection(db, collection, name, age) {
     await client
       .db(db)
       .collection(collection)
-      .insertOne({ name: name, age: age });
+      .insertOne({ Name: name, Age: age });
   } catch (e) {
     console.log(e);
   }
