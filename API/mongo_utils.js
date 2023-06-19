@@ -10,10 +10,8 @@ export async function connect() {
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Client was connected!");
-    return true;
   } catch (e) {
     console.log(e);
-    return false;
   }
 }
 
@@ -25,7 +23,6 @@ export async function cutConnection() {
 export async function getAllDatabases() {
   try {
     databasesList = await client.db().admin().listDatabases();
-
     console.log("Databases:");
     databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
   } catch (e) {
@@ -33,22 +30,23 @@ export async function getAllDatabases() {
   }
 }
 
-/* async function getAllCollectionsForDatabase(db) {
+export async function getAllCollectionsForDatabase(db) {
   try {
-    const dataBase = client.db(db);
-    collectionsList = dataBase.listCollections();
-    console.log(collectionsList);
+    client
+      .db(db)
+      .listCollections()
+      .toArray()
+      .then((cols) => console.log("Collections: ", cols));
   } catch (e) {
     console.log(e);
   }
-} */
+}
 
 export async function getAllDocumentsForDatabaseCollection(db, collection) {
   let temp = [];
   try {
     for await (const doc of client.db(db).collection(collection).find()) {
       temp.push(doc);
-      console.dir(doc);
     }
     return temp;
   } catch (e) {
@@ -56,13 +54,10 @@ export async function getAllDocumentsForDatabaseCollection(db, collection) {
   }
 }
 
-async function run() {
+export async function insertUserInDBSCollection(db, collection, name, age) {
   try {
-    if (await connect()) {
-      //await getAllDatabases();
-      await getAllDocumentsForDatabaseCollection("testdbs", "testcollection");
-    }
-    await cutConnection();
+    const doc = { name: name, age: age };
+    await client.db(db).collection(collection).insertOne(doc);
   } catch (e) {
     console.log(e);
   }
