@@ -1,0 +1,38 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.id {
+  font-weight: bold;
+}
+
+.details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1.3s ease;
+}
+
+.name,
+.age,
+.nickname {
+  display: block;
+  margin-bottom: 5px;
+}
+
+li.active .details {
+  max-height: 100px; /* Adjust the value as needed */
+}
+
+li.active {
+  background-color: #e0e0e0;
+}
