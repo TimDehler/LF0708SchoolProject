@@ -1,7 +1,9 @@
 import * as utils from "./mongo_utils.js";
 import express from "express";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 await utils.connect();
 

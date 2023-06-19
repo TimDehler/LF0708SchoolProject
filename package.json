@@ -2,10 +2,9 @@
   "name": "mongoapi",
   "version": "1.0.0",
   "description": "",
-  "main": "axios.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "api": "nodemon express.mjs"
+    "api": "nodemon ./API/express.mjs"
   },
   "author": "",
   "type": "module",
