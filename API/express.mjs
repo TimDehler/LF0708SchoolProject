@@ -7,9 +7,11 @@ import {
 } from "./mongo_utils.js";
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 await connect();
 
@@ -26,6 +28,21 @@ app.get("/data", async (req, res) => {
 app.get("/listCollections", async (req, res) => {
   res.send(await getAllCollectionsForDatabase("testdbs"));
 });
+
+// app.post("/createNewDoc", async (req, res) => {
+//   console.log(req.headers.name, req.headers.age);
+//   const { name, age } = req.body;
+//   console.log(name, age);
+//   res.send(
+//     /*     await insertUserInDBSCollection(
+//       "testdbs",
+//       "testcollection",
+//       req.params.Name,
+//       req.params.Age
+//     ) */
+//     { name, age }
+//   );
+// });
 
 app.get("/createNewDoc/:Name/:Age", async (req, res) => {
   res.send(
