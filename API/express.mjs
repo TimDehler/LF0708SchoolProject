@@ -3,6 +3,7 @@ import {
   getAllCollectionsForDatabase,
   getAllDocumentsForDatabaseCollection,
   insertUserInDBSCollection,
+  getAllDatabases,
 } from "./mongo_utils.js";
 import express from "express";
 import cors from "cors";
@@ -26,10 +27,19 @@ app.get("/listCollections", async (req, res) => {
   res.send(await getAllCollectionsForDatabase("testdbs"));
 });
 
-app.get("/createNewDoc", async (req, res) => {
+app.get("/createNewDoc/:Name/:Age", async (req, res) => {
   res.send(
-    await insertUserInDBSCollection("testdbs", "testcollection", "Baa", 333)
+    await insertUserInDBSCollection(
+      "testdbs",
+      "testcollection",
+      req.params.Name,
+      req.params.Age
+    )
   );
+});
+
+app.get("/getAllDatabases", async (req, res) => {
+  res.send(await getAllDatabases());
 });
 
 app.listen(3000, () => {

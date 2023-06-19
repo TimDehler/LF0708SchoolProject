@@ -22,7 +22,7 @@ export async function cutConnection() {
 
 export async function getAllDatabases() {
   try {
-    databasesList = await client.db().admin().listDatabases();
+    const databasesList = await client.db().admin().listDatabases();
     console.log("Databases:");
     databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
   } catch (e) {
@@ -56,8 +56,10 @@ export async function getAllDocumentsForDatabaseCollection(db, collection) {
 
 export async function insertUserInDBSCollection(db, collection, name, age) {
   try {
-    const doc = { name: name, age: age };
-    await client.db(db).collection(collection).insertOne(doc);
+    await client
+      .db(db)
+      .collection(collection)
+      .insertOne({ name: name, age: age });
   } catch (e) {
     console.log(e);
   }
