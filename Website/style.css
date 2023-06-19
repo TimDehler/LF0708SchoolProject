@@ -1,3 +1,20 @@
+* {
+  font-family: "Courier New", Courier, monospace;
+}
+
+header {
+  background-color: #606c5d;
+  font-size: xx-large;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f7e6c4;
+}
+
 .list {
   list-style: none;
   padding: 0;
@@ -5,34 +22,34 @@
 
 .list li {
   margin-bottom: 10px;
-  background-color: #f0f0f0;
   padding: 10px;
   cursor: pointer;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 1.3s ease;
 }
 
 .id {
   font-weight: bold;
+  font-size: larger;
 }
 
 .details {
   max-height: 0;
+  font-size: larger;
   overflow: hidden;
   transition: max-height 1.3s ease;
 }
 
 .name,
-.age,
-.nickname {
+.age {
   display: block;
   margin-bottom: 5px;
 }
 
 li.active .details {
-  max-height: 100px; /* Adjust the value as needed */
+  max-height: 150px; /* Adjust the value as needed */
 }
 
 li.active {
-  background-color: #e0e0e0;
+  background-color: #f1c376;
 }

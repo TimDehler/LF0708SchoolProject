@@ -13,15 +13,15 @@ async function getData() {
     let liElement = document.createElement("li");
     let span = liElement.appendChild(document.createElement("span"));
     span.setAttribute("class", "id");
-    span.innerHTML = cust._id;
+    span.innerHTML = "ID: " + cust._id;
     let div = liElement.appendChild(document.createElement("div"));
     div.setAttribute("class", "details");
     let name_span = div.appendChild(document.createElement("span"));
     name_span.setAttribute("class", "name");
-    name_span.innerHTML = cust.Name;
+    name_span.innerHTML = "Name: " + cust.Name;
     let age_span = div.appendChild(document.createElement("span"));
     name_span.setAttribute("class", "age");
-    age_span.innerHTML = cust.Age;
+    age_span.innerHTML = "Age: " + cust.Age;
 
     ulList.appendChild(liElement);
   });
