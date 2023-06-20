@@ -21,7 +21,10 @@ app.get("/", (req, res) => {
 
 app.get("/data", async (req, res) => {
   res.send(
-    await getAllDocumentsForDatabaseCollection("testdbs", "testcollection")
+    await getAllDocumentsForDatabaseCollection(
+      "testdatenbank",
+      "testcollection"
+    )
   );
 });
 
