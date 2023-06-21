@@ -2,6 +2,10 @@
   font-family: "Courier New", Courier, monospace;
 }
 
+.iframe-container {
+  display: flex;
+  align-items: center;
+}
 header {
   background-color: #606c5d;
   font-size: xx-large;

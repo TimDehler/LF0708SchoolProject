@@ -1,25 +1,13 @@
-const url = "http://localhost:3000/data";
+const container = document.getElementById("container");
+const mqtt_url = "http://localhost:3000/mqtt-data";
 
-const myDoc = document.getElementById("container");
-const updateContainer = document.getElementById("update");
-
-async function getData() {
-  let myData = await fetch(url);
-  const temp = await myData.json();
-  temp.map((s) => {
-    mapObject(s, myDoc);
-  });
-  const listItems = document.querySelectorAll(".list li");
-  listItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      item.classList.toggle("active");
-    });
-  });
-}
+let mqttDataJSON;
+let wasDataSame = false;
 
 const mapObject = (obj, whomToAppendTo) => {
   let ulList = document.createElement("ul");
   ulList.setAttribute("class", "list");
+  ulList.setAttribute("id", "list-item");
 
   let liElement = document.createElement("li");
   let span = liElement.appendChild(document.createElement("span"));
@@ -85,4 +73,38 @@ const mapObject = (obj, whomToAppendTo) => {
   whomToAppendTo.appendChild(ulList);
 };
 
-getData();
+const getMqttData = async () => {
+  let fetchedData = await fetch(mqtt_url);
+  const newMqttDataJSON = await fetchedData.json();
+
+  if (mqttDataJSON === undefined) {
+    mqttDataJSON = newMqttDataJSON;
+  }
+  if (mqttDataJSON === newMqttDataJSON) {
+    wasDataSame = true;
+  } else {
+    mqttDataJSON = newMqttDataJSON;
+    mapObject(mqttDataJSON, container);
+  }
+
+  const listItems = document.querySelectorAll(".list li");
+  listItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      item.classList.toggle("active");
+    });
+  });
+};
+
+setInterval(() => {
+  console.log("checked");
+  const temp_doc = document.getElementById("list-item");
+
+  if (temp_doc === null) {
+    getMqttData();
+  }
+
+  if (temp_doc !== null && !wasDataSame) {
+    temp_doc.remove();
+    getMqttData();
+  }
+}, 5000);

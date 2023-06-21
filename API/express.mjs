@@ -8,6 +8,7 @@ import {
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import { provideData } from "../Website/mqtt.mjs";
 
 const app = express();
 app.use(cors());
@@ -28,8 +29,12 @@ app.get("/data", async (req, res) => {
   );
 });
 
+app.get("/mqtt-data", (req, res) => {
+  res.send(provideData());
+});
+
 app.get("/listCollections", async (req, res) => {
-  res.send(await getAllCollectionsForDatabase("testdbs"));
+  res.send(await getAllCollectionsForDatabase("test"));
 });
 
 // app.post("/createNewDoc", async (req, res) => {
@@ -38,7 +43,7 @@ app.get("/listCollections", async (req, res) => {
 //   console.log(name, age);
 //   res.send(
 //     /*     await insertUserInDBSCollection(
-//       "testdbs",
+//       "testdatenbank",
 //       "testcollection",
 //       req.params.Name,
 //       req.params.Age
@@ -50,7 +55,7 @@ app.get("/listCollections", async (req, res) => {
 app.get("/createNewDoc/:Name/:Age", async (req, res) => {
   res.send(
     await insertUserInDBSCollection(
-      "testdbs",
+      "testdatenbank",
       "testcollection",
       req.params.Name,
       req.params.Age
