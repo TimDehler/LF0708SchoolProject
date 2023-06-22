@@ -1,6 +1,6 @@
 import mqtt from "mqtt";
 
-const brokerUrl = "mqtt://10.100.20.145:1883";
+/* const brokerUrl = "mqtt://10.100.20.145:1883";
 const clientId = "web-service";
 
 // MQTT topics to subscribe to
@@ -40,7 +40,7 @@ client.on("error", (err) => {
 // MQTT client disconnected
 client.on("close", () => {
   console.log("Disconnected from MQTT broker");
-});
+}); */
 
 export function provideData() {
   const test_data = {

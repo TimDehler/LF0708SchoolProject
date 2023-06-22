@@ -4,11 +4,11 @@ import {
   getAllDocumentsForDatabaseCollection,
   insertUserInDBSCollection,
   getAllDatabases,
-} from "./mongo_utils.js";
+} from "../API/mongo_utils.js";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { provideData } from "../Website/mqtt.mjs";
+import { provideData } from "../Website/IFrame/mqtt.mjs";
 
 const app = express();
 app.use(cors());

@@ -1,25 +1,7 @@
-const url = "http://localhost:3000/data";
-
-const myDoc = document.getElementById("container");
-const updateContainer = document.getElementById("update");
-
-async function getData() {
-  let myData = await fetch(url);
-  const temp = await myData.json();
-  temp.map((s) => {
-    mapObject(s, myDoc);
-  });
-  const listItems = document.querySelectorAll(".list li");
-  listItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      item.classList.toggle("active");
-    });
-  });
-}
-
-const mapObject = (obj, whomToAppendTo) => {
+export const mapObject = (obj) => {
   let ulList = document.createElement("ul");
   ulList.setAttribute("class", "list");
+  ulList.setAttribute("id", "list-item");
 
   let liElement = document.createElement("li");
   let span = liElement.appendChild(document.createElement("span"));
@@ -82,7 +64,5 @@ const mapObject = (obj, whomToAppendTo) => {
     "Min process humidity: " + obj.min_humidity + "%";
 
   ulList.appendChild(liElement);
-  whomToAppendTo.appendChild(ulList);
+  return ulList;
 };
-
-getData();
