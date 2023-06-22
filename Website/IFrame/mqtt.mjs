@@ -1,12 +1,30 @@
 import mqtt from "mqtt";
 
+let mqtt_data;
+
+/* let mqtt_data = {
+  _id: "testid",
+  start_time: "test",
+  end_time: "test",
+  time_taken: "test",
+  colors_sorted: [
+    { color: "red", amount: 1 },
+    { color: "blue", amount: 1 },
+    { color: "green", amount: 1 },
+  ],
+  avg_temperature: "test",
+  max_temperature: "test",
+  min_temperature: "test",
+  avg_humidity: "test",
+  max_humidity: "test",
+  min_humidity: "test",
+}; */
+
 /* const brokerUrl = "mqtt://10.100.20.145:1883";
 const clientId = "web-service";
 
 // MQTT topics to subscribe to
 const topic = "planlosV2/data";
-
-let message_toFormat;
 
 // Create MQTT client
 const client = mqtt.connect(brokerUrl, { clientId });
@@ -28,7 +46,7 @@ client.on("connect", () => {
 // Handle received messages
 client.on("message", (topic, message) => {
   console.log(`Received message on topic "${topic}": ${message.toString()}`);
-  message_toFormat = message;
+  mqtt_data = message;
   // Handle the received message data here
 });
 
@@ -43,22 +61,5 @@ client.on("close", () => {
 }); */
 
 export function provideData() {
-  const test_data = {
-    _id: "testid",
-    start_time: "test",
-    end_time: "test",
-    time_taken: "test",
-    colors_sorted: [
-      { color: "red", amount: 1 },
-      { color: "blue", amount: 1 },
-      { color: "green", amount: 1 },
-    ],
-    avg_temperature: "test",
-    max_temperature: "test",
-    min_temperature: "test",
-    avg_humidity: "test",
-    max_humidity: "test",
-    min_humidity: "test",
-  };
-  return test_data;
+  return mqtt_data;
 }
