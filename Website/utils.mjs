@@ -6,7 +6,13 @@ export const mapObject = (obj) => {
   let liElement = document.createElement("li");
   let span = liElement.appendChild(document.createElement("span"));
   span.setAttribute("class", "id");
-  span.innerHTML = "ID: " + obj._id;
+
+  if (obj._id === undefined) {
+    obj._id = "Most recent process data:";
+    span.innerHTML = obj._id;
+  } else {
+    span.innerHTML = "ID: " + obj._id;
+  }
 
   let div = liElement.appendChild(document.createElement("div"));
   div.setAttribute("class", "details");

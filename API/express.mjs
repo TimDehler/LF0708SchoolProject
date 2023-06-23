@@ -9,6 +9,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { provideData } from "../Website/IFrame/mqtt.mjs";
+import "dotenv/config";
 
 const app = express();
 app.use(cors());
@@ -23,8 +24,8 @@ app.get("/", (req, res) => {
 app.get("/data", async (req, res) => {
   res.send(
     await getAllDocumentsForDatabaseCollection(
-      "testdatenbank",
-      "testcollection"
+      process.env.database,
+      process.env.collection
     )
   );
 });

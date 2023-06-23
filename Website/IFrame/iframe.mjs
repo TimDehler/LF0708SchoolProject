@@ -34,14 +34,18 @@ const addEvent = () => {
 setInterval(async () => {
   const listItem = document.getElementById("list-item");
   const data = await getMqttData();
-
   if (listItem === null) {
     oldData = data;
     container.appendChild(mapObject(data));
     addEvent();
   }
 
-  if (listItem !== null && oldData._id !== data._id) {
+  if (
+    listItem !== null &&
+    oldData._id === undefined &&
+    data._id === undefined
+  ) {
+    console.log("check");
     listItem.remove();
     container.appendChild(mapObject(data));
     addEvent();

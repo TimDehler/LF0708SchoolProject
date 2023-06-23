@@ -1,26 +1,8 @@
 import mqtt from "mqtt";
 
-//let mqtt_data;
+let mqtt_data;
 
-let mqtt_data = {
-  _id: "testid",
-  start_time: "test",
-  end_time: "test",
-  time_taken: "test",
-  colors_sorted: [
-    { color: "red", amount: 1 },
-    { color: "blue", amount: 1 },
-    { color: "green", amount: 1 },
-  ],
-  avg_temperature: "test",
-  max_temperature: "test",
-  min_temperature: "test",
-  avg_humidity: "test",
-  max_humidity: "test",
-  min_humidity: "test",
-};
-
-/* const brokerUrl = "mqtt://10.100.20.145:1883";
+const brokerUrl = "mqtt://10.100.20.145:1883";
 const clientId = "web-service";
 
 // MQTT topics to subscribe to
@@ -45,8 +27,8 @@ client.on("connect", () => {
 
 // Handle received messages
 client.on("message", (topic, message) => {
-  console.log(`Received message on topic "${topic}": ${message.toString()}`);
-  mqtt_data = message;
+  //console.log(`Received message on topic "${topic}": ${message.toString()}`);
+  mqtt_data = JSON.parse(message);
   // Handle the received message data here
 });
 
@@ -58,7 +40,7 @@ client.on("error", (err) => {
 // MQTT client disconnected
 client.on("close", () => {
   console.log("Disconnected from MQTT broker");
-}); */
+});
 
 export function provideData() {
   return mqtt_data;
