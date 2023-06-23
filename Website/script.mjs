@@ -7,6 +7,7 @@ const myDoc = document.getElementById("update");
 async function getData() {
   let myData = await fetch(url);
   const temp = await myData.json();
+  console.log("called: " + temp);
   temp.map((s) => {
     myDoc.appendChild(mapObject(s));
   });
