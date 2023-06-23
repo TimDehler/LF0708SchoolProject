@@ -1,8 +1,8 @@
 import mqtt from "mqtt";
 
-let mqtt_data;
+//let mqtt_data;
 
-/* let mqtt_data = {
+let mqtt_data = {
   _id: "testid",
   start_time: "test",
   end_time: "test",
@@ -18,7 +18,7 @@ let mqtt_data;
   avg_humidity: "test",
   max_humidity: "test",
   min_humidity: "test",
-}; */
+};
 
 /* const brokerUrl = "mqtt://10.100.20.145:1883";
 const clientId = "web-service";
