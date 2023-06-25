@@ -6,7 +6,6 @@ const url = "http://localhost:3000/data";
 const myDoc = document.getElementById("update");
 
 async function getData() {
-  let temp;
   await fetch(url)
     .then((response) => response.json())
     .then((data) =>
