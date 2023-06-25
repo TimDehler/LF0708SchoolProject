@@ -19,4 +19,8 @@ async function getData() {
   });
 }
 
-getData();
+const run = () => {
+  getData();
+};
+
+run();
