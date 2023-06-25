@@ -72,3 +72,12 @@ export const mapObject = (obj) => {
   ulList.appendChild(liElement);
   return ulList;
 };
+
+export const formatTime = (timestamp) => {
+  const dateTime = new Date(timestamp);
+  const time = dateTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return { time, date: dateTime.toLocaleDateString() };
+};
