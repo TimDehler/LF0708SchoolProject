@@ -4,15 +4,19 @@ import {
   getAllDocumentsForDatabaseCollection,
   insertUserInDBSCollection,
   getAllDatabases,
-} from "./mongo_utils.js";
+} from "../API/mongo_utils.js";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { provideData } from "../Website/mqtt.mjs";
+import { provideData } from "../Website/IFrame/mqtt.mjs";
+import "dotenv/config";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+const dbs = process.env.database;
+const col = process.env.collection;
 
 await connect();
 
@@ -21,12 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/data", async (req, res) => {
-  res.send(
-    await getAllDocumentsForDatabaseCollection(
-      "testdatenbank",
-      "testcollection"
-    )
-  );
+  res.send(await getAllDocumentsForDatabaseCollection(dbs, col));
 });
 
 app.get("/mqtt-data", (req, res) => {
