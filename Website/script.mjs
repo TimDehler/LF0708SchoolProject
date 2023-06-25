@@ -9,11 +9,13 @@ async function getData() {
   let temp;
   await fetch(url)
     .then((response) => response.json())
-    .then((data) => (temp = data))
+    .then((data) =>
+      data.map((s) => {
+        myDoc.appendChild(mapObject(s));
+      })
+    )
     .catch((error) => console.log(error));
-  temp.map((s) => {
-    myDoc.appendChild(mapObject(s));
-  });
+
   const listItems = document.querySelectorAll(".list li");
   listItems.forEach((item) => {
     item.addEventListener("click", () => {
