@@ -9,8 +9,12 @@ export const getPrices = (startTimeStamp, endTimeStamp, all) => {
 };
 
 const fetchPrices = async (url) => {
-  let priceData = await fetch(url);
-  let JSON = await priceData.json();
+  await fetch(url)
+    .then((response) => response.json())
+    .then((data) => (JSON = data))
+    .catch((error) => {
+      console.log(error);
+    });
   return getMinMaxAvg(JSON.data);
 };
 
