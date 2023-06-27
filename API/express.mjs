@@ -8,7 +8,7 @@ import {
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { provideData } from "../Website/mqtt.mjs";
+import { provideData } from "./mqtt.mjs";
 
 const app = express();
 app.use(cors());
