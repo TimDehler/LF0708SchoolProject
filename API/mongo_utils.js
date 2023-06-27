@@ -1,12 +1,7 @@
 import { MongoClient } from "mongodb";
 import "dotenv/config";
-<<<<<<< HEAD
-//const client = new MongoClient(process.env.school_uri);
+
 const client = new MongoClient(process.env.school_uri);
-=======
-const client = new MongoClient(process.env.uri);
-//const client = new MongoClient(process.env.school_uri);
->>>>>>> 91bcab3f9c2927d87da64c175a2ac734f7d36d0a
 
 export async function connect() {
   try {
