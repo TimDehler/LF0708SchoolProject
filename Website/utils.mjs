@@ -7,7 +7,11 @@ export const mapObject = (obj) => {
   let span = liElement.appendChild(document.createElement("span"));
   span.setAttribute("class", "id");
 
+<<<<<<< HEAD
   if (obj._id === null) {
+=======
+  if (obj._id === undefined) {
+>>>>>>> 91bcab3f9c2927d87da64c175a2ac734f7d36d0a
     obj._id = "Most recent process data:";
     span.innerHTML = obj._id;
   } else {
