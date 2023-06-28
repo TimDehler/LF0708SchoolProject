@@ -11,11 +11,9 @@ let myMessage;
 // Create MQTT client
 const client = mqtt.connect(brokerUrl, { clientId });
 
-// MQTT client connected
 client.on("connect", () => {
   console.log("Connected to MQTT broker");
 
-  // Subscribe to topics
   client.subscribe(topic, (err) => {
     if (err) {
       console.error("Error subscribing to topic");

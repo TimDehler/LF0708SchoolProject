@@ -1,22 +1,30 @@
-* {
+z* {
   font-family: "Courier New", Courier, monospace;
 }
 
 .iframe-container {
-  display: flex;
-  align-items: center;
+  margin-bottom: 50px;
+  border: 1px solid black;
+  height: 425px;
+  width: 100%;
 }
 header {
-  background-color: #606c5d;
   font-size: xx-large;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: auto;
-  margin: 0;
-  padding: 0;
 }
 
-body {
-  background-color: #f7e6c4;
+.container {
+  border-radius: 25px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
 }
 
 .list {
@@ -50,11 +58,39 @@ body {
   margin-bottom: 5px;
 }
 
+li.active span {
+  margin: 10px;
+}
+
 li.active .details {
-  max-height: 350px; /* Adjust the value as needed */
+  max-height: 400px;
 }
 
 li.active {
-  background-color: #f1c376;
   transition: 1.3s ease;
+}
+
+.status {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 100px;
+  margin-bottom: 50px;
+}
+
+.imageContainer {
+  max-width: 15%;
+  max-height: 80%;
+  margin-right: 60px;
+}
+
+.headerContainer {
+  width: 80%;
+  height: 100%;
+}
+
+.myimg {
+  width: 50px;
+  height: 50px;
 }
