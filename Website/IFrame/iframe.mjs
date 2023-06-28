@@ -2,6 +2,7 @@ import { mapObject } from "../utils.mjs";
 
 const container = document.getElementById("container");
 const mqtt_url = "http://localhost:3000/mqtt-data";
+const eventSource = new EventSource("http://localhost:3000/mqtt-data");
 
 const getMqttData = async () => {
   await fetch(mqtt_url)
@@ -28,7 +29,6 @@ const addEvent = () => {
   });
 };
 
-const eventSource = new EventSource("http://localhost:3000/mqtt-data");
 eventSource.onmessage = () => {
   container.appendChild(getMqttData());
   addEvent();

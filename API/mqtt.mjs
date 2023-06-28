@@ -25,19 +25,15 @@ client.on("connect", () => {
   });
 });
 
-// Handle received messages
 client.on("message", (topic, message) => {
   console.log(`Received message on topic "${topic}": ${message.toString()}`);
   myMessage = JSON.parse(message);
-  // Handle the received message data here
 });
 
-// MQTT client error handling
 client.on("error", (err) => {
   console.error("MQTT client error:", err);
 });
 
-// MQTT client disconnected
 client.on("close", () => {
   console.log("Disconnected from MQTT broker");
 });
