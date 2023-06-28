@@ -28,7 +28,7 @@ client.on("connect", () => {
 // Handle received messages
 client.on("message", (topic, message) => {
   console.log(`Received message on topic "${topic}": ${message.toString()}`);
-  myMessage = message;
+  myMessage = JSON.parse(message);
   // Handle the received message data here
 });
 

@@ -9,6 +9,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import "dotenv/config";
+import { provideData } from "./mqtt.mjs";
 
 const app = express();
 app.use(cors());
@@ -42,6 +43,10 @@ app.get("/createNewDoc/:Name/:Age", async (req, res) => {
       req.params.Age
     )
   );
+});
+
+app.get("/mqtt-data", (req, res) => {
+  res.send(provideData());
 });
 
 app.get("/getAllDatabases", async (req, res) => {
