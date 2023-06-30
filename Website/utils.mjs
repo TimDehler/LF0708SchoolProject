@@ -41,8 +41,9 @@ export const mapObject = (obj) => {
 
   let avg_temperature_span = div.appendChild(document.createElement("span"));
   avg_temperature_span.setAttribute("class", "name");
+  let temp1 = parseFloat(obj.avg_temperature).toFixed(2);
   avg_temperature_span.innerHTML =
-    "Average process temperature: " + obj.avg_temperature + "°C";
+    "Average process temperature: " + temp1 + "°C";
 
   let max_temperature_span = div.appendChild(document.createElement("span"));
   max_temperature_span.setAttribute("class", "name");
@@ -56,7 +57,7 @@ export const mapObject = (obj) => {
 
   let avg_humidity_span = div.appendChild(document.createElement("span"));
   avg_humidity_span.setAttribute("class", "name");
-  let temp = obj.avg_humidity;
+  let temp = parseFloat(obj.avg_humidity).toFixed(2);
   avg_humidity_span.innerHTML = `Average process humidity ${temp}%`;
 
   let max_humidity_span = div.appendChild(document.createElement("span"));
