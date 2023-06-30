@@ -2,28 +2,29 @@ import { mapObject } from "../utils.mjs";
 
 const container = document.getElementById("container");
 const mqtt_url = "http://localhost:3000/mqtt-data";
-const eventSource = new EventSource("http://localhost:3000/mqtt-data");
+
+let oldData;
 
 const getMqttData = async () => {
-  let retValue;
-  await fetch(mqtt_url)
-    .then((response) => response.json())
-    .then((data) => {
-      data.map((s) => {
-        retValue = mapObject(s);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
+  let fetchedData = await fetch(mqtt_url);
+  let freshData;
+  try {
+    freshData = await fetchedData.json();
+  } catch (e) {
+    if (document.getElementById("status") === null) {
+      console.log(`Caught: ${e}`);
       const status_message = document.createElement("h1");
-      status_message.textContent = "Theres no new data to display";
-      retValue = status_message;
-    });
-  return retValue;
+      status_message.setAttribute("id", "status");
+      status_message.textContent = "There is no new data to display!";
+      container.appendChild(status_message);
+    }
+  }
+  return freshData;
 };
 
 const addEvent = () => {
   const listItems = document.querySelectorAll(".list li");
+
   listItems.forEach((item) => {
     item.addEventListener("click", () => {
       item.classList.toggle("active");
@@ -31,7 +32,25 @@ const addEvent = () => {
   });
 };
 
-eventSource.onmessage = () => {
-  container.appendChild(getMqttData());
-  addEvent();
-};
+setInterval(async () => {
+  const listItem = document.getElementById("list-item");
+  const data = await getMqttData();
+  if (listItem === null) {
+    container.appendChild(mapObject(data));
+    addEvent();
+  }
+
+  if (
+    listItem !== null &&
+    oldData._id === undefined &&
+    data._id === undefined
+  ) {
+    const status = document.getElementById("status");
+    if (status) {
+      status.remove();
+    }
+    listItem.remove();
+    container.appendChild(mapObject(data));
+    addEvent();
+  }
+}, 5000);
