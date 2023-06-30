@@ -5,19 +5,21 @@ const mqtt_url = "http://localhost:3000/mqtt-data";
 const eventSource = new EventSource("http://localhost:3000/mqtt-data");
 
 const getMqttData = async () => {
+  let retValue;
   await fetch(mqtt_url)
     .then((response) => response.json())
     .then((data) => {
       data.map((s) => {
-        return mapObject(s);
+        retValue = mapObject(s);
       });
     })
     .catch((error) => {
       console.log(error);
       const status_message = document.createElement("h1");
       status_message.textContent = "Theres no new data to display";
-      return status_message;
+      retValue = status_message;
     });
+  return retValue;
 };
 
 const addEvent = () => {

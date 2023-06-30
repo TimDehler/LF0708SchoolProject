@@ -56,8 +56,8 @@ export const mapObject = (obj) => {
 
   let avg_humidity_span = div.appendChild(document.createElement("span"));
   avg_humidity_span.setAttribute("class", "name");
-  avg_humidity_span.innerHTML =
-    "Average process humidity: " + obj.avg_humidity + "%";
+  let temp = obj.avg_humidity;
+  avg_humidity_span.innerHTML = `Average process humidity ${temp}%`;
 
   let max_humidity_span = div.appendChild(document.createElement("span"));
   max_humidity_span.setAttribute("class", "name");

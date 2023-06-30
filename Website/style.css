@@ -3,7 +3,8 @@ z* {
 }
 
 .iframe-container {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  border-radius: 5px;
   border: 1px solid black;
   height: 425px;
   width: 100%;
@@ -17,19 +18,51 @@ header {
   height: auto;
 }
 
-.container {
-  border-radius: 25px;
-  border: 1px solid black;
+ul {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+span {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span .id {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin: auto;
+  flex-wrap: wrap;
 }
 
 .list {
   list-style: none;
+  margin: 20px;
+  width: 90%;
   padding: 0;
+  border-radius: 5px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .list li {
@@ -47,15 +80,16 @@ header {
 
 .details {
   max-height: 0;
+  width: 100%;
   font-size: larger;
   overflow: hidden;
   transition: max-height 1.3s ease;
 }
 
-.name,
-.age {
+.name {
   display: block;
   margin-bottom: 5px;
+  width: 90%;
 }
 
 li.active span {
@@ -72,11 +106,12 @@ li.active {
 
 .status {
   border: 1px solid black;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   max-height: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .imageContainer {
