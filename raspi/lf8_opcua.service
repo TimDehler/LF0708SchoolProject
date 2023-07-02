@@ -1,0 +1,12 @@
+[Unit]
+Description=OPCUA AS PYTHON
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /usr/local/bin/opcua_server.py
+Restart=always
+StandardOutput=file:%h/log_opcua.txt
+
+[Install]
+WantedBy=default.target
