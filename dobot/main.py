@@ -12,9 +12,10 @@ from asyncua import Client
 import asyncio
 import time
 
+# Base coordinates for defining the starting point for every process
 baseX, baseY, baseZ = 200.0, 0.0, 0.0
 
-# Counts
+# Color count for continous stacking if the same color appears multiple times (3 stack max)
 redCount = 0
 blueCount = 0
 greenCount = 0
@@ -178,9 +179,12 @@ def dataBaseConnection(data_to_insert):
         print('Could not connect to MongoDB:', str(e))
         exit()
 
-    # Access the desired database and collection
-    db = client[database_name]
-    collection = db[collection_name]
+    try:
+        # Access the desired database and collection
+        db = client[database_name]
+        collection = db[collection_name]
+    except e:
+        print("database or collection name invalid")
 
     result = collection.insert_one(data_to_insert)
     print('Inserted document ID:', result.inserted_id)
@@ -194,11 +198,6 @@ def dataBaseConnection(data_to_insert):
 
 # Async function to get the temperature data
 #----------------------------------------------------------------------------------------------
-    # - Thread erstellen
-    # - OPCUA Client Subscriben und Temperatur auslesen und in ein Array Speichern
-    # threading.Thread(target=on_new_camera, args=(CAMERA_PORT,), daemon=True).start()
-#----------------------------------------------------------------------------------------------
-
 async def __internal_opcua_request():
     uri = "http://examples.freeopcua.github.io"
 
@@ -226,6 +225,11 @@ def getDataFromOPCUA(stopEvent, data):
         data.append((temperature, humidity))
         time.sleep(0.1);
 
+#----------------------------------------------------------------------------------------------
+# Async function to get the temperature data
+
+
+
 # Util functions
 #----------------------------------------------------------------------------------------------
 def format_time(time_to_format):
@@ -233,48 +237,10 @@ def format_time(time_to_format):
 
 def calculate_process_time(start_time, end_time):
     return round((end_time - start_time).total_seconds(), 2)
-#----------------------------------------------------------------------------------------------
-# Util functions
 
 
-
-# #--Main Program--
-def main():
-    # start opcua data collection
-    opcua_terminate = threading.Event()
-    opcua_data = []
-    opcua_thread = threading.Thread(target=getDataFromOPCUA, args=[opcua_terminate, opcua_data])
-    opcua_thread.start()
-    print("collecting opcua data has started ...")
-    
-    start_time = datetime.datetime.now()
-    print(format_time(start_time))
-    
-    RASPI_CONNECTION = ("10.62.255.4", 65432)
-    s = socket.create_connection(RASPI_CONNECTION)
-    # perform handshake with the raspi
-    dispatch(s, {"packet":"handshake", "version":1})
-    response = receive(s)
-    
-    roboCode(s)
-    
-    # terminate connection
-    dispatch(s, {"packet":"close"})
-    response = receive(s)
-    s.close()
-    
-    end_time = datetime.datetime.now()
-    print(format_time(end_time))
-    
-    time_taken = str(calculate_process_time(start_time, end_time)) + " seconds"
-    
-    # finish opcua data collection
-    opcua_terminate.set()
-    opcua_thread.join()
-    temperatures = [temperature for (temperature, humidity) in opcua_data]
-    humidities = [humidity for (temperature, humidity) in opcua_data]
-    
-    data = {
+def createDocumentForDBSInsert(start_time, end_time, temperatures, humidities):
+    return {
         "start_time": format_time(start_time),
         "end_time": format_time(end_time),
         "time_taken": time_taken,
@@ -290,15 +256,71 @@ def main():
     "max_humidity": max(humidities),
     "min_humidity": min(humidities)
     }
-    
-    # write to MQTT
+#----------------------------------------------------------------------------------------------
+# Util functions
+
+
+
+# MQTT publisher
+#----------------------------------------------------------------------------------------------
+def writeToMQTT(dataObject):
     mqtt_client = mqtt.Client("data-publisher")
     mqtt_client.connect("10.100.20.145", 1883)    
-    mqtt_client.publish("planlosV2/data", json.dumps(data))
+    mqtt_client.publish("planlosV2/data", json.dumps(dataObject))
     mqtt_client.disconnect()
+#----------------------------------------------------------------------------------------------
+# MQTT publisher
+
+
+
+# Main Programm
+#----------------------------------------------------------------------------------------------
+def main():
+    # start opcua data collection
+    opcua_terminate = threading.Event()
+    opcua_data = []
+    opcua_thread = threading.Thread(target=getDataFromOPCUA, args=[opcua_terminate, opcua_data])
+    opcua_thread.start()
+    print("collecting opcua data has started ...")
+    
+    start_time = datetime.datetime.now()
+    print("Start time: " + format_time(start_time))
+    
+    RASPI_CONNECTION = ("10.62.255.4", 65432)
+    s = socket.create_connection(RASPI_CONNECTION)
+
+    # perform handshake with the raspi
+    dispatch(s, {"packet":"handshake", "version":1})
+    response = receive(s)
+    
+    # run the color sorting
+    roboCode(s)
+    
+    # terminate connection
+    dispatch(s, {"packet":"close"})
+    response = receive(s)
+    s.close()
+    
+    end_time = datetime.datetime.now()
+    print("End time: " + format_time(end_time))
+    
+    time_taken = str(calculate_process_time(start_time, end_time)) + " seconds"
+    
+    # finish opcua data collection
+    opcua_terminate.set()
+    opcua_thread.join()
+    temperatures = [temperature for (temperature, humidity) in opcua_data]
+    humidities = [humidity for (temperature, humidity) in opcua_data]
+    
+    # write to MQTT
+    writeToMQTT(createDocumentForDBSInsert(start_time, end_time, temperatures, humidities))
 
     # write to database
-    dataBaseConnection(data)
+    dataBaseConnection(createDocumentForDBSInsert(start_time, end_time, temperatures, humidities))
     print("Main program finished")
+#----------------------------------------------------------------------------------------------
+# Main Programm
+
+
 
 main()
