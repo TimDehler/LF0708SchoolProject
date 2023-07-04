@@ -240,6 +240,7 @@ def calculate_process_time(start_time, end_time):
 
 
 def createDocumentForDBSInsert(start_time, end_time, temperatures, humidities):
+    time_taken = str(calculate_process_time(start_time, end_time)) + " seconds"
     return {
         "start_time": format_time(start_time),
         "end_time": format_time(end_time),
@@ -303,9 +304,7 @@ def main():
     
     end_time = datetime.datetime.now()
     print("End time: " + format_time(end_time))
-    
-    time_taken = str(calculate_process_time(start_time, end_time)) + " seconds"
-    
+        
     # finish opcua data collection
     opcua_terminate.set()
     opcua_thread.join()
@@ -320,7 +319,5 @@ def main():
     print("Main program finished")
 #----------------------------------------------------------------------------------------------
 # Main Programm
-
-
 
 main()
