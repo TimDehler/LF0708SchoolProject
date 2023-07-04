@@ -24,7 +24,6 @@ const addEvent = () => {
     const str = element.innerHTML;
     if (str.includes("Most recent process data:")) {
       console.log("inside");
-
       element.parentElement.addEventListener("click", () => {
         element.parentElement.classList.toggle("active");
       });

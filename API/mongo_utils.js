@@ -2,7 +2,6 @@ import { MongoClient } from "mongodb";
 import "dotenv/config";
 
 const client = new MongoClient(process.env.school_uri);
-//const client = new MongoClient(process.env.uri);
 
 export async function connect() {
   try {
