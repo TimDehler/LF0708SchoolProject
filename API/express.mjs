@@ -30,10 +30,6 @@ app.get("/data", async (req, res) => {
   );
 });
 
-app.get("/listCollections", async (req, res) => {
-  res.send(await getAllCollectionsForDatabase("test"));
-});
-
 app.get("/mqtt-data", (req, res) => {
   res.send(provideData());
 });
