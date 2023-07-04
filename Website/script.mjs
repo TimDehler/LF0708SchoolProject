@@ -1,5 +1,5 @@
 import { getPrices } from "./awattar.mjs";
-import { formatTime, mapObject } from "../utils.mjs";
+import { formatTime, mapObject } from "./utils.mjs";
 
 const url = "http://localhost:3000/data";
 
@@ -10,7 +10,7 @@ async function getData() {
     .then((response) => response.json())
     .then((data) => {
       data.map((s) => {
-        myDoc.appendChild(mapObject(s, false));
+        myDoc.appendChild(mapObject(s));
       });
     })
     .catch((error) => console.log(error));
@@ -33,7 +33,6 @@ const setPriceStatus = async () => {
 const run = async () => {
   getData();
   setPriceStatus();
-  //console.log(formatTime(1636329600000));
 };
 
 run();

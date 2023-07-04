@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <title>MONGO API</title>
   </head>
   <body>
@@ -17,8 +17,18 @@
           <h2 id="costEstimation" class="costEstimation"></h2>
         </div>
       </div>
-
-      <iframe src="../IFrame/iframe.html" class="iframe-container"> </iframe>
+      <div
+        id="container"
+        class="iframe-container"
+        style="
+          color: black;
+          font-size: xx-large;
+          display: flex;
+          justify-content: center;
+        "
+      >
+        No message from MQTT yet... stay tuned!
+      </div>
       <div id="update" class="container">
         <!-- will be filled with content -->
       </div>
@@ -26,4 +36,5 @@
     <footer></footer>
   </body>
   <script type="module" src="./script.mjs"></script>
+  <script type="module" src="./iframe.mjs"></script>
 </html>

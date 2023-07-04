@@ -5,10 +5,10 @@
 .iframe-container {
   margin-bottom: 30px;
   border-radius: 5px;
-  border: 1px solid black;
-  height: 425px;
+  height: 100px;
   width: 100%;
 }
+
 header {
   font-size: xx-large;
   width: 100%;
