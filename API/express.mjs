@@ -34,23 +34,8 @@ app.get("/listCollections", async (req, res) => {
   res.send(await getAllCollectionsForDatabase("test"));
 });
 
-app.get("/createNewDoc/:Name/:Age", async (req, res) => {
-  res.send(
-    await insertUserInDBSCollection(
-      "testdatenbank",
-      "testcollection",
-      req.params.Name,
-      req.params.Age
-    )
-  );
-});
-
 app.get("/mqtt-data", (req, res) => {
   res.send(provideData());
-});
-
-app.get("/getAllDatabases", async (req, res) => {
-  res.send(await getAllDatabases());
 });
 
 app.listen(3000, () => {

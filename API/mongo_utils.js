@@ -19,28 +19,6 @@ export async function cutConnection() {
   console.log("Client was closed!");
 }
 
-export async function getAllDatabases() {
-  try {
-    const databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-export async function getAllCollectionsForDatabase(db) {
-  try {
-    client
-      .db(db)
-      .listCollections()
-      .toArray()
-      .then((cols) => console.log("Collections: ", cols));
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 export async function getAllDocumentsForDatabaseCollection(db, collection) {
   let temp = [];
   try {
@@ -48,17 +26,6 @@ export async function getAllDocumentsForDatabaseCollection(db, collection) {
       temp.push(doc);
     }
     return temp;
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-export async function insertUserInDBSCollection(db, collection, name, age) {
-  try {
-    await client
-      .db(db)
-      .collection(collection)
-      .insertOne({ Name: name, Age: age });
   } catch (e) {
     console.log(e);
   }
