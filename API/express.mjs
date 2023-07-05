@@ -1,9 +1,6 @@
 import {
   connect,
-  getAllCollectionsForDatabase,
   getAllDocumentsForDatabaseCollection,
-  insertUserInDBSCollection,
-  getAllDatabases,
 } from "../API/mongo_utils.js";
 import express from "express";
 import cors from "cors";
